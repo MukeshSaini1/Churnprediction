@@ -3,10 +3,11 @@
 {% block content %}
 <div class="container mt-5">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-primary text-white">
             <h4 class="card-title">Upload CSV File for Prediction</h4>
         </div>
         <div class="card-body">
+            <!-- Upload Form -->
             <form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
                 <div class="form-group">
                     <label for="csv-file">
@@ -14,7 +15,7 @@
                     </label>
                     <input type="file" name="file" id="csv-file" class="form-control-file" accept=".csv" required>
                 </div>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mt-3">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-upload"></i> Upload CSV
                     </button>
@@ -23,6 +24,45 @@
                     </a>
                 </div>
             </form>
+
+            <!-- Instructions Section -->
+            <div class="alert alert-info mt-4">
+                <h5 class="alert-heading">Instructions for Uploading a CSV File</h5>
+                <p><strong>To ensure accurate predictions, please follow these guidelines when preparing your CSV file:</strong></p>
+                <ul>
+                    <li><strong>File Format:</strong> Make sure your file is in CSV format. It should have a <code>.csv</code> extension (e.g., <code>data.csv</code>).</li>
+                    <li><strong>Column Requirements:</strong> The CSV file must contain the following columns:
+                        <ul>
+                            <li><strong>Numeric Features:</strong> These are numerical values used by the model. Ensure that these columns are present and contain numeric data.</li>
+                            <li><strong>Categorical Features:</strong> These are non-numeric categories such as text or labels. Ensure that these columns are included and correctly formatted.</li>
+                            <li><strong>Prediction Column:</strong> This column will be added by the system to show the prediction result. You don’t need to include this column in your file; it will be generated automatically.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Column Names:</strong> The names of the columns in your CSV file must match exactly with the names expected by the model. For example: <strong>Tenure, PreferredLoginDevice, CityTier, WarehouseToHome, PreferredPaymentMode, Gender, etc.</strong></li>
+
+                    <li><strong>Data Formatting:</strong>
+                        <ul>
+                            <li><strong>Numeric Data:</strong> Should be actual numbers (e.g., <code>10</code>, <code>3.5</code>).</li>
+                            <li><strong>Categorical Data:</strong> Should be consistent and correctly spelled (e.g., <code>Male</code>, <code>Female</code>).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Upload the File:</strong>
+                        <ul>
+                            <li>Click on the “Choose CSV File” button on the upload page.</li>
+                            <li>Select your prepared CSV file from your computer.</li>
+                            <li>Click on the “Upload CSV” button to submit your file.</li>
+                        </ul>
+                    </li>
+                    <li><strong>What Happens Next:</strong>
+                        <ul>
+                            <li>After uploading, the system will preprocess your data, apply the model, and provide predictions.</li>
+                            <li>You will be able to view the results in a table, along with a message summarizing the predictions.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>If you encounter any issues or if the CSV file is missing required columns, you will be notified with an error message.</p>
+                <p><strong>Thank you for using our prediction service!</strong></p>
+            </div>
         </div>
     </div>
 </div>
