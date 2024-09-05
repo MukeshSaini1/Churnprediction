@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Churn Prediction Result</h3>
+        </div>
+        <div class="card-body text-center">
+            <h4 class="mb-4">
+                Prediction: {{ 'Churn' if prediction == 1 else 'No Churn' }}
+            </h4>
+            {% if prediction == 1 %}
+                <p class="lead" style="color: #721c24; background-color: #f8d7da; padding: 15px; border-radius: 5px;">
+                    Based on our analysis, it seems likely that the customer may not continue with the business.
+                    We suggest taking proactive steps to retain the customer, such as improving engagement or offering incentives.
+                </p>
+
+            {% else %}
+                <p class="lead" style="color: #155724; background-color: #d4edda; padding: 15px; border-radius: 5px;">
+                    The prediction indicates that the customer is likely to continue with the business.
+                    However, maintaining good service and engagement is always a good practice.
+                </p>
+            {% endif %}
+        </div>
+        <div class="card-footer text-center">
+            <a href="/" class="btn btn-secondary">Go Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

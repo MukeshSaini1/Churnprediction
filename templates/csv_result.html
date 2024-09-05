@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="card-title">CSV Prediction Results</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="card-subtitle mb-4">Results Table</h5>
+            <!-- Display the styled table -->
+            <div class="table-responsive">
+                {{ table_html|safe }}
+            </div>
+            <div class="alert alert-info mt-4">
+                <p>{{ message }}</p>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/upload" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Go Back
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
