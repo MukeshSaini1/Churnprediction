@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Bootstrap CSS -->
+
+    <style>
+        .important {
+            font-weight: bold;
+            color: #d9534f; /* Bootstrap danger color for emphasis */
+        }
+        .section-title {
+            color: #007bff; /* Bootstrap primary color */
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: #f8f9fa; /* Light gray background */
+            border-left: 5px solid #007bff; /* Blue border */
+            padding: 10px;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="card-title">Model Documentation Summary</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="section-title">Overview</h5>
+                <p>This model is designed to <span class="important">predict customer churn</span> for an e-commerce platform using a dataset that includes various customer-related features. The model is implemented using a <span class="important">decision tree classifier</span> within a machine learning pipeline that includes preprocessing steps.</p>
+
+                <h5 class="section-title">Features and Data Preprocessing</h5>
+                <ul>
+                    <li><strong>Data Source:</strong> The model uses data from an Excel file (<code>E Commerce Dataset.xlsx</code>), specifically from the second sheet.</li>
+                    <li><strong>Missing Values:</strong>
+                        <ul>
+                            <li>Numeric features such as <code>Tenure</code>, <code>WarehouseToHome</code>, <code>HourSpendOnApp</code>, <code>CouponUsed</code>, <code>OrderCount</code>, and <code>CashbackAmount</code> have missing values filled with their respective column means.</li>
+                            <li>Additional columns, <code>OrderAmountHikeFromlastYear</code> and <code>DaySinceLastOrder</code>, are similarly handled.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Data Cleaning:</strong>
+                        <ul>
+                            <li>Some categorical values have been replaced to ensure consistency:
+                                <ul>
+                                    <li><code>MaritalStatus</code>: 'Divorced' is replaced with 'Single'.</li>
+                                    <li><code>PreferredLoginDevice</code>: 'Phone' and 'Mobile Phone' are both replaced with 'Handphone'.</li>
+                                    <li><code>PreferredPaymentMode</code>: 'CC' and 'COD' are replaced with 'Credit Card' and 'Cash on Delivery' respectively.</li>
+                                    <li><code>PreferedOrderCat</code>: 'Mobile Phone' is replaced with 'Mobile'.</li>
+                                </ul>
+                            </li>
+                            <li>The <code>CustomerID</code> column is removed as it is not used for prediction.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h5 class="section-title">Model Pipeline</h5>
+                <ul>
+                    <li><strong>Preprocessing Steps:</strong>
+                        <ul>
+                            <li><strong>One-Hot Encoding:</strong> Categorical features are encoded to numerical values using one-hot encoding. This transformation is applied to specific columns based on their indices.</li>
+                            <li><strong>Standard Scaling:</strong> Numeric features are scaled to standardize their ranges.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Classifier:</strong> A <span class="important">Decision Tree Classifier</span> is used as the model for making predictions.</li>
+                </ul>
+
+                <h5 class="section-title">Model Training and Evaluation</h5>
+                <ul>
+                    <li><strong>Training:</strong> The model is trained on a training dataset (<code>x_train</code>, <code>y_train</code>).</li>
+                    <li><strong>Evaluation:</strong>
+                        <ul>
+                            <li><strong>Accuracy Score:</strong> The model's accuracy is evaluated on a test dataset (<code>x_test</code>).</li>
+                            <li><strong>Cross-Validation:</strong> The model's performance is validated using cross-validation with 5 folds to ensure robustness and generalization.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Hyperparameter Tuning:</strong>
+                        <ul>
+                            <li>Grid Search is used to find the best hyperparameters for the Decision Tree Classifier.</li>
+                            <li>The best parameters and model performance are reported.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h5 class="section-title">Model Export</h5>
+                <p>The trained model pipeline is saved to a file (<code>churn_prediction_model.pkl</code>) using pickle for future use and deployment.</p>
+
+                <h5 class="section-title">Real-World Applications</h5>
+                <div class="highlight">
+                    <ul>
+                        <li><strong>Customer Retention:</strong> <span class="important">E-commerce Platforms</span>: This model can be used by online retailers to predict which customers are likely to stop using their services. By identifying these customers, businesses can implement targeted retention strategies to improve customer loyalty and reduce churn rates.</li>
+                        <li><strong>Marketing Strategies:</strong> <span class="important">Personalized Marketing</span>: Companies can use the predictions to tailor marketing campaigns. For instance, special offers or incentives can be given to customers predicted to churn in an effort to retain them.</li>
+                        <li><strong>Resource Allocation:</strong> <span class="important">Customer Support</span>: Resources can be allocated more effectively by focusing on high-risk customers who are predicted to churn. This helps in prioritizing support and intervention efforts.</li>
+                        <li><strong>Strategic Planning:</strong> <span class="important">Business Strategy</span>: Insights from the model can inform strategic decisions regarding customer service improvements, product offerings, and overall business strategy.</li>
+                        <li><strong>Subscription Services:</strong> <span class="important">Media and Entertainment</span>: Streaming services or subscription-based platforms can use this model to forecast which subscribers may cancel their subscriptions, allowing them to proactively address potential issues and improve customer satisfaction.</li>
+                    </ul>
+                </div>
+
+                <p>By leveraging this model, businesses can gain valuable insights into customer behavior, enabling them to take proactive measures to enhance customer retention and drive long-term growth.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+
+{% endblock %}

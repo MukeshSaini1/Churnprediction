@@ -128,7 +128,14 @@ def upload():
 
     return render_template('upload.html')
 
+@app.route('/document')
+def document():
+    return render_template('document.html')
 
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
