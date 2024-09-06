@@ -8,12 +8,18 @@
         </div>
         <div class="card-body">
             <h5 class="card-subtitle mb-4">Results Table</h5>
-            <!-- Display the styled table -->
-            <div class="table-responsive">
+            <!-- Display the styled table with a fixed height and scrollbar -->
+            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                 {{ table_html|safe }}
             </div>
+
             <div class="alert alert-info mt-4">
                 <p>{{ message }}</p>
+            </div>
+
+            <!-- Display the churn customer message -->
+            <div class="alert alert-warning mt-4">
+                <p>{{ churn_message }}</p>
             </div>
         </div>
         <div class="card-footer text-center">

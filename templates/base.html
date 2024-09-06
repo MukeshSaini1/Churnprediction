@@ -37,6 +37,16 @@
             background-color: #007bff;
             border-color: #007bff;
         }
+        /* Footer styling */
+        .footer {
+            background-color: #343a40; /* Dark background color */
+            color: white;
+            padding: 6px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -54,7 +64,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/upload">Upload CSV</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="/document">Documentation</a>
                 </li>
                 <li class="nav-item">
@@ -80,6 +90,11 @@
         {% block content %}
         <!-- Page-specific content will be injected here -->
         {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024, All Rights Reserved, by C.S. Soft Solutions (India) Private Limited</p>
     </div>
 
     <!-- Bootstrap JS and dependencies -->

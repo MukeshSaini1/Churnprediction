@@ -75,10 +75,11 @@ def upload():
             try:
                 df = pd.read_csv(file)
 
-                # Ensure the dataframe has the necessary columns
-                columns_needed = features_for_prediction['numeric'] + features_for_prediction['categorical']
+                # Ensure the dataframe has the necessary columns including CustomerID
+                columns_needed = ['CustomerID'] + features_for_prediction['numeric'] + features_for_prediction[
+                    'categorical']
                 if not all(col in df.columns for col in columns_needed):
-                    return "Error: CSV file missing required columns.", 400
+                    return render_template('upload.html', error_message="Error: CSV file missing required columns.")
 
                 # Preprocess the data
                 df = df[columns_needed]
@@ -90,12 +91,15 @@ def upload():
                 df[categorical_features].fillna('Unknown', inplace=True)
 
                 # Apply preprocessing and scaling
-                preprocessed_data = preprocessor.transform(df)
+                preprocessed_data = preprocessor.transform(df.drop(columns=['CustomerID']))
                 scaled_data = scaler.transform(preprocessed_data)
 
                 # Predict
                 predictions = model.predict(scaled_data)
                 df['Prediction'] = predictions
+
+                # Identify customers predicted to churn
+                churn_customers = df[df['Prediction'] == 1]
 
                 # Limit to first 6 columns (including 'Prediction')
                 columns_to_display = df.columns[:6].tolist() + ['Prediction']
@@ -107,6 +111,15 @@ def upload():
 
                 # Convert DataFrame to HTML table
                 table_html = df.to_html(classes='table table-striped table-bordered', index=False)
+
+                # Convert churn customers to HTML table
+                if not churn_customers.empty:
+                    churn_table_html = churn_customers[['CustomerID', 'Prediction']].to_html(
+                        classes='table table-striped table-bordered', index=False)
+                    churn_ids = ', '.join(map(str, churn_customers['CustomerID'].tolist()))
+                else:
+                    churn_table_html = ""
+                    churn_ids = ""
 
                 # Create user-friendly messages
                 if churn_count > no_churn_count:
@@ -122,11 +135,18 @@ def upload():
                         "The majority of customers are predicted to stay, which is a positive sign."
                     )
 
-                return render_template('csv_result.html', table_html=table_html, message=message)
+                churn_message = (
+                    f"Customers predicted to churn (CustomerID): {churn_ids}. "
+                    "These customers should be targeted for enhanced offers to improve retention."
+                )
+
+                return render_template('csv_result.html', table_html=table_html, message=message,
+                                       churn_table_html=churn_table_html, churn_message=churn_message)
             except Exception as e:
                 return f"Error during prediction: {e}", 500
 
     return render_template('upload.html')
+
 
 @app.route('/document')
 def document():
